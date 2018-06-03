@@ -72,6 +72,7 @@
 
         if( questionsCount === 3) {
             commentText.innerText = ['Liar! You\'re not a time traveller','Looks like you are indeed a time traveller'][Math.floor(Math.random() * 2)];
+            test.setAttribute("style", "visibility: hidden")
         }
         else {
             nextButton.removeAttribute('style');
