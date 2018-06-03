@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Are You From Future?</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+          integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+
+</head>
+<body>
+
+<div class="display-4 mt-5 text-center">
+    <div id="start">
+        <input type="number" placeholder="What year you're from?" id="year">
+        <button type="submit" onclick="startTest()">Start</button>
+    </div>
+    <div style="visibility: hidden" id="test">
+        <p id="question"></p>
+        <input type="text" placeholder="type your answer" id="answer" autofocus>
+        <button onclick="saveAnswer()">save answer</button>
+    </div>
+
+    <div class="m-5">
+        <p id="comment"></p>
+        <button id="next" style="visibility: hidden" onclick="startTest()">Next Question</button>
+    </div>
+</div>
+
+<script src="generateQuestions.js"></script>
+
+<script>
+    let start = document.getElementById('start');
+    let test = document.getElementById('test');
+    let questionText = document.getElementById('question');
+    let answerText = document.getElementById('answer');
+    let commentText = document.getElementById('comment');
+    let nextButton = document.getElementById('next');
+    let answers = [];
+    var questionsCount = 0;
+
+    function startTest() {
+        let year = document.getElementById('year').value;
+        answerText.value = "";
+        nextButton.setAttribute("style", "visibility:hidden");
+        commentText.innerText = "";
+
+        if (!year || year <= new Date().getFullYear()) {
+            alert('Enter a valid year in future');
+            return;
+        }
+        test.removeAttribute("style");
+        start.setAttribute("style", "visibility: hidden");
+        questionText.innerHTML = generateQuestion(year, questionsCount)
+        questionsCount++;
+
+    }
+
+    function saveAnswer() {
+        answers.push({'question': questionText.innerHTML, 'answer': answerText.value});
+
+        if (questionText.innerHTML.includes('bitcoin')) {
+            commentText.innerText = 'BRB, I\'m going to buy some bitcoins.. '
+        }
+        else if (questionText.innerHTML.includes('president')) {
+            commentText.innerText = 'hmm, weirder things have happened, moving on..'
+        }
+        else {
+            commentText.innerText = 'Interesting reason, let\'s see if you can answer this next question.'
+        }
+
+        if( questionsCount === 3) {
+            commentText.innerText = ['Liar! You\'re not a time traveller','Looks like you are indeed a time traveller'][Math.floor(Math.random() * 2)];
+        }
+        else {
+            nextButton.removeAttribute('style');
+        }
+
+    }
+
+</script>
+</body>
+</html>
