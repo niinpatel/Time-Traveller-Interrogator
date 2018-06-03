@@ -13,12 +13,12 @@
 
 <div class="display-4 mt-5 text-center">
     <div id="start">
-        <input type="number" placeholder="What year you're from?" id="year">
+        <input type="number" placeholder="What year you're from?" id="year" onkeypress="if(event.key === 'Enter'){startTest()}">
         <button type="submit" onclick="startTest()">Start</button>
     </div>
     <div style="visibility: hidden" id="test">
         <p id="question"></p>
-        <input type="text" placeholder="type your answer" id="answer" autofocus>
+        <input type="text" placeholder="type your answer" id="answer" onkeypress="if(event.key === 'Enter'){saveAnswer()}" autofocus>
         <button onclick="saveAnswer()">save answer</button>
     </div>
 
